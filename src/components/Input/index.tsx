@@ -9,11 +9,18 @@ import { useField } from '@unform/core';
 
 import { Container } from './styles';
 
-const Input = ({ name, icon: Icon, ...rest }) => {
-  const inputRef = useRef(null);
+interface IInput extends React.InputHTMLAttributes<HTMLInputElement> {
+  name: string;
+  icon?: React.ComponentClass<{
+    size: number;
+  }>;
+}
 
-  const [isFocused, setIsFocused] = useState(false);
-  const [isFilled, setIsFilled] = useState(false);
+const Input = ({ name, icon: Icon, ...rest }: IInput) => {
+  const inputRef: React.RefObject<HTMLInputElement> = useRef(null);
+
+  const [isFocused, setIsFocused] = useState<boolean>(false);
+  const [isFilled, setIsFilled] = useState<boolean>(false);
 
   const { fieldName, defaultValue, registerField } = useField(name);
 
